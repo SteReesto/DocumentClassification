@@ -42,38 +42,49 @@ def read_all_labels():
 
 
 def read_label_id(label):
-	connection = connect()
-	cursor = connection.cursor()
+	try:
+		connection = connect()
+		cursor = connection.cursor()
 
-	query = "SELECT labels.id FROM labels WHERE labels.label = '" + label + "';"
-	cursor.execute(query)
+		query = f"SELECT labels.id FROM labels WHERE labels.label = '{label}';"
+		cursor.execute(query)
+		row = cursor.fetchall()
+		connection.commit()
 
-	row = cursor.fetchall()
+		return str(row[0][0])
 
-	connection.commit()
-	cursor.close()
-	disconnect(connection)
+	except Exception as e:
+		return None
 
-	return str(row[0][0])
+	finally:
+		cursor.close()
+		disconnect(connection)
 
 
 def create_document(object):
-	connection = connect()
-	cursor = connection.cursor()
+	try:
+		connection = connect()
+		cursor = connection.cursor()
 
-	label_id = read_label_id(object['label'])
+		label_id = read_label_id(object['label'])
 
-	query = "INSERT INTO documents VALUES (NULL, '" + object['filename'] + "', " + label_id + ");"
-	cursor.execute(query)
+		if label_id is None:
+			create_label(object['label'])
+			label_id = read_label_id(object['label'])
 
-	connection.commit()
+		query = f"INSERT INTO documents VALUES (NULL, '{object['filename']}', {label_id});"
+		cursor.execute(query)
+		last_id = cursor.lastrowid
+		connection.commit()
 
-	last_id = cursor.lastrowid
+		return last_id
 
-	cursor.close()
-	disconnect(connection)
+	except Exception as e:
+		return None
 
-	return last_id
+	finally:
+		cursor.close()
+		disconnect(connection)
 
 
 def create_label(label):
@@ -81,7 +92,7 @@ def create_label(label):
 		connection = connect()
 		cursor = connection.cursor()
 
-		query = "INSERT INTO labels VALUES (NULL, '" + label + "');"
+		query = f"INSERT INTO labels VALUES (NULL, '{label}');"
 
 		cursor.execute(query)
 		connection.commit()
@@ -101,7 +112,7 @@ def read_document(id):
 		connection = connect()
 		cursor = connection.cursor()
 
-		query = "SELECT * FROM documents WHERE id = " + str(id) + ";"
+		query = f"SELECT * FROM documents WHERE id = {str(id)};"
 		cursor.execute(query)
 
 		row = cursor.fetchall()
@@ -123,7 +134,7 @@ def read_label(id):
 		connection = connect()
 		cursor = connection.cursor()
 
-		query = "SELECT * FROM labels WHERE id = " + str(id) + ";"
+		query = f"SELECT * FROM labels WHERE id = {str(id)};"
 		cursor.execute(query)
 
 		row = cursor.fetchall()
@@ -145,7 +156,7 @@ def update_document(object):
 		connection = connect()
 		cursor = connection.cursor()
 
-		query = "UPDATE documents SET filename = '" + object['filename'] + "', label_id = " + object['label_id'] + " WHERE id = " + str(object['id']) + ";"
+		query = f"UPDATE documents SET filename = '{object['filename']}', label_id = {object['label_id']} WHERE id = {str(object['id'])};"
 		cursor.execute(query)
 
 		row = cursor.fetchall()
@@ -167,7 +178,7 @@ def delete_document(id):
 		connection = connect()
 		cursor = connection.cursor()
 
-		query = "DELETE FROM documents WHERE id = " + str(id) + ";"
+		query = f"DELETE FROM documents WHERE id = {str(id)};"
 		cursor.execute(query)
 
 		connection.commit()
@@ -187,7 +198,7 @@ def delete_label(id):
 		connection = connect()
 		cursor = connection.cursor()
 
-		query = "DELETE FROM labels WHERE id = " + str(id) + ";"
+		query = f"DELETE FROM labels WHERE id = {str(id)};"
 		cursor.execute(query)
 
 		connection.commit()
@@ -200,12 +211,3 @@ def delete_label(id):
 	finally:
 		cursor.close()
 		disconnect(connection)
-
-
-def main():
-	print(read_all_documents())
-	print(read_all_labels())
-
-
-if __name__ == '__main__':
-	main()

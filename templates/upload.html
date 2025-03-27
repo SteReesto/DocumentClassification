@@ -14,10 +14,10 @@
                 <a class="navbar-brand" href="/">PDF Classifier</a>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/upload">Upload</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/upload">Upload</a>
                     </li>
                 </ul>
             </div>
@@ -28,15 +28,12 @@
         <h1>Upload PDF</h1>
         <form action="/upload" method="post" enctype="multipart/form-data">
             <div class="mb-3">
-                <input type="file" class="form-control" name="pdf_file" accept="application/pdf">
+                <input type="file" class="form-control" name="pdf_file" accept=".pdf" required>
             </div>
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary">Upload</button>
             </div>
         </form>
-        <div id="file-tree" class="mt-5">
-            <h2>Classified Files</h2>
-        </div>
     </div>
 </body>
 </html>

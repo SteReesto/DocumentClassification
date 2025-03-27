@@ -1,10 +1,8 @@
 import os
 from collections import Counter
-from os.path import exists
-
 import fitz
 from flask import Flask, render_template, request
-
+import DAO
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
@@ -18,9 +16,6 @@ def index():
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
     if request.method == 'POST':
-        if 'pdf_file' not in request.files:
-            return 'No file detected!'
-
         file = request.files['pdf_file']
 
         if file.filename.endswith('.pdf'):
@@ -29,7 +24,19 @@ def upload():
             text = read_pdf(file_path)
             tokenized = tokenize_words(text)
             most_common = find_common_words(tokenized)
-            label = label_doc(tokenized)
+            label = label_doc(tokenized)[0]
+
+            labeled_file = {
+                "filename": file.filename,
+                "label": label
+            }
+
+            if 'PCTO' in file.filename:
+                labeled_file['label'] = 'PCTO'
+
+            last_id = DAO.create_document(labeled_file)
+            labeled_file['id'] = last_id
+
 
     return render_template('upload.html')
 
@@ -84,7 +91,6 @@ def label_doc(list_of_words):
     else:
         return 'altro'
 
-
 '''
 def label_docs(docs):
     words_to_be_found = [
@@ -102,6 +108,7 @@ def label_docs(docs):
 '''
 
 
+'''
 def read_all(folder_path):
     result = {}
 
@@ -116,9 +123,13 @@ def read_all(folder_path):
                 "most_common_words": most_common
             }
 
-            # label_docs(result[filename])
+            label_docs(result[filename])
+
+            if 'PCTO' in filename:
+                result[filename]['label'] = 'PCTO'
 
     return result
+'''
 
 
 if __name__ == '__main__':
