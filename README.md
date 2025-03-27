@@ -1,5 +1,4 @@
 ## 1. Obiettivi
----
 - **Scopo:**
     Creare un'intelligenza artificiale in grado di:
     
