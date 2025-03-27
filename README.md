@@ -7,7 +7,6 @@
     - Classificarli automaticamente in categorie
 
 ## 2. Epica e User Stories
----
 ### Epica
 
 - _Come utente voglio poter caricare documenti in formato PDF e farli classificare automaticamente in base al contenuto_
@@ -25,7 +24,6 @@
 - _Come utente voglio un'interfaccia intuitiva_
 
 ## 5. Sprint
----
 ### Sprint 1
 
 - **Obiettivi:**
@@ -68,7 +66,6 @@
 5. Riduzione di dimensionalità (riduzione numero di colonne, quelle che non incidono sul contenuto effettivo) in parallelo con il clustering (cerca classificazioni in base ai valori dei token)
 
 #### Modelli
----
 1. https://huggingface.co/prithivMLmods/MBERT-Context-Specifier
 2. https://huggingface.co/E-MIMIC/inclusively-classification
 3. https://huggingface.co/mayapapaya/Keyword-Extractor
@@ -76,8 +73,7 @@
 5. https://huggingface.co/BAAI/bge-reranker-v2-m3
 6. https://github.com/FabrizioDeSantis/multi-label-text-classification-bert
 
-#### Datasets (lo creo io con le circolari)
----
+#### Datasets (lo creo io con le circolari dell'ITIS)
 1. https://metatext.io/datasets/cc100-italian
 2. https://huggingface.co/datasets/gsarti/clean_mc4_it
 3. https://www.mdpi.com/2078-2489/13/5/228
@@ -90,7 +86,6 @@
 10. https://www.kaggle.com/datasets/alvations/old-newspapers?resource=download
 
 #### Link utili
----
 1. https://medium.com/@claude.feldges/text-classification-with-tf-idf-lstm-bert-a-quantitative-comparison-b8409b556cb3
 2. https://www.klippa.com/en/blog/information/document-classification/
 3. https://www.datacamp.com/tutorial/text-classification-python
