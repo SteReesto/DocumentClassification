@@ -47,7 +47,6 @@
 
 - **Attività:**
     - Addestramento dei modelli di classificazione
-    - Integrazione del modulo di classificazione con il modulo di riconoscimento
     - Validazione dei risultati e miglioramento degli algoritmi
 
 ### Sprint 4
@@ -58,12 +57,6 @@
 
 
 [https://www.docsumo.com/blogs/ocr/document-classification#:~:text=Document%20classification%20assigns%20a%20document,information%20helps%20us%20find%20information.]
-
-
-
-https://huggingface.co/  per modelli
-https://huggingface.co/docs/transformers/quicktour per far girare i modelli 
-
 
 1. Documenti (circolari ad esempio)
 	1. Scaricare tutte le circolari
