@@ -200,18 +200,6 @@ if __name__ == '__main__':
     
 - Runs the Flask application.
 
-[https://www.docsumo.com/blogs/ocr/document-classification#:~:text=Document%20classification%20assigns%20a%20document,information%20helps%20us%20find%20information.]
-
-1. Documenti (circolari ad esempio)
-	1. Scaricare tutte le circolari
-	2. Fare batch che estragga il testo da ogni PDF
-	3. Eliminare i PDF una volta estratto il testo
-
-2. Da PDF a text
-3. Da text cercare parole più comuni (token, es con regex)
-4. Costruzione dataset (se token appare 1 volta scarta)
-5. Riduzione di dimensionalità (riduzione numero di colonne, quelle che non incidono sul contenuto effettivo) in parallelo con il clustering (cerca classificazioni in base ai valori dei token)
-
 #### Modelli
 1. https://huggingface.co/prithivMLmods/MBERT-Context-Specifier
 2. https://huggingface.co/E-MIMIC/inclusively-classification
