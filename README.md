@@ -50,6 +50,13 @@
     - Integrazione delle API
 
 
+## Database
+
+``` mermaid
+erDiagram
+	Document ||--|| Label : Has
+```
+
 [https://www.docsumo.com/blogs/ocr/document-classification#:~:text=Document%20classification%20assigns%20a%20document,information%20helps%20us%20find%20information.]
 
 1. Documenti (circolari ad esempio)
