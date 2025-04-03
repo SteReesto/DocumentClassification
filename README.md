@@ -1,3 +1,16 @@
+# Struttura applicazione
+```mermaid
+graph TD;
+    A[User] -->|Uploads PDF| B[Flask Server];
+    B -->|Saves File| C[Upload Folder];
+    B -->|Extracts Text| D[read_pdf];
+    D -->|Tokenizes Words| E[tokenize_words];
+    E -->|Finds Common Words| F[find_common_words];
+    E -->|Labels Document| G[label_doc];
+    G -->|Saves Metadata| H[Database];
+    H -->|Stores Labeled File| I[Document Records];
+```
+
 ## 1. Obiettivi
 - **Scopo:**
     Creare un'intelligenza artificiale in grado di:
