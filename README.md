@@ -33,12 +33,9 @@
 ### Sprint 2
 
 - **Attività:**
-    - Progettazione e implementazione dei modelli di riconoscimento (Convolutional Neural Network -> audio, immagini - Recurrent Neural Network - Transformer -> traduzioni e generazione).
+    - Progettazione e implementazione dei modelli di riconoscimento
     - Creazione e preparazione del dataset per l’addestramento.
     - Test dei modelli.
-    - (CNN https://www.ibm.com/think/topics/convolutional-neural-networks)
-    - (RNN https://www.ibm.com/think/topics/recurrent-neural-networks)
-    - (Transformer https://www.ibm.com/think/topics/transformer-model)
 
 ### Sprint 3
 
