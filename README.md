@@ -72,25 +72,33 @@ erDiagram
 
 ## Overview
 
-Permette all'utente di caricare un file PDF e lo classifica in base al contenuto identificando le parole più comuni. Salva i documenti in un DB.
+This Flask-based web application allows users to upload PDF files, extract and process text from them, identify common words, and classify the document based on predefined keywords. The extracted data is then stored in a database via a DAO (Data Access Object) module.
 
 ## Dependencies
 
 - `os`
+    
 - `collections.Counter`
+    
 - `fitz` (PyMuPDF for PDF processing)
+    
 - `flask`
+    
 - `DAO` (A custom module for database operations)
     
 
 ## Application Structure
 
-### 1. **Flask App Inizializzazione**
+### 1. **Flask App Initialization**
 
 ```
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 ```
+
+- Initializes a Flask app.
+    
+- Sets the upload folder for storing uploaded PDFs.
     
 
 ### 2. **Routes**
@@ -103,12 +111,26 @@ def index():
     return render_template('index.html')
 ```
 
+- Renders the homepage.
+    
+
 #### **File Upload Route**
 
 ```
 @app.route('/upload', methods=['POST', 'GET'])
 def upload():
-``` 
+```
+
+- Handles file uploads.
+    
+- Extracts text from PDFs and processes it.
+    
+- Identifies the most common words.
+    
+- Classifies the document based on predefined keywords.
+    
+- Saves document metadata in the database.
+    
 
 ## Functions
 
@@ -124,6 +146,9 @@ def read_pdf(pdf_path):
     return text
 ```
 
+- Reads a PDF file and extracts text while converting it to lowercase and removing unwanted characters.
+    
+
 ### 2. **tokenize_words(text)**
 
 ```
@@ -134,6 +159,11 @@ def tokenize_words(text):
     return filtered_words
 ```
 
+- Splits text into words.
+    
+- Removes unwanted words and short/non-alphabetic words.
+    
+
 ### 3. **find_common_words(data)**
 
 ```
@@ -141,6 +171,9 @@ def find_common_words(data):
     word_count = Counter(data)
     return word_count.most_common(50)
 ```
+
+- Finds the 50 most common words in the processed text.
+    
 
 ### 4. **label_doc(list_of_words)**
 
@@ -151,6 +184,9 @@ def label_doc(list_of_words):
     return label[0] if label else 'altro'
 ```
 
+- Labels the document based on the presence of predefined keywords.
+    
+
 ### 5. **Main Execution Block**
 
 ```
@@ -159,6 +195,10 @@ if __name__ == '__main__':
         os.makedirs('uploads/')
     app.run()
 ```
+
+- Ensures the upload directory exists.
+    
+- Runs the Flask application.
 
 [https://www.docsumo.com/blogs/ocr/document-classification#:~:text=Document%20classification%20assigns%20a%20document,information%20helps%20us%20find%20information.]
 
