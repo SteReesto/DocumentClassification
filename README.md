@@ -70,6 +70,96 @@ erDiagram
 	Document ||--|| Label : Has
 ```
 
+## Overview
+
+Permette all'utente di caricare un file PDF e lo classifica in base al contenuto identificando le parole più comuni. Salva i documenti in un DB.
+
+## Dependencies
+
+- `os`
+- `collections.Counter`
+- `fitz` (PyMuPDF for PDF processing)
+- `flask`
+- `DAO` (A custom module for database operations)
+    
+
+## Application Structure
+
+### 1. **Flask App Inizializzazione**
+
+```
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+```
+    
+
+### 2. **Routes**
+
+#### **Homepage Route**
+
+```
+@app.route('/')
+def index():
+    return render_template('index.html')
+```
+
+#### **File Upload Route**
+
+```
+@app.route('/upload', methods=['POST', 'GET'])
+def upload():
+``` 
+
+## Functions
+
+### 1. **read_pdf(pdf_path)**
+
+```
+def read_pdf(pdf_path):
+    doc = fitz.open(pdf_path)
+    text = ''
+    for page in doc:
+        text += page.get_text().lower().replace("’", " ").replace('"', ' ')
+    doc.close()
+    return text
+```
+
+### 2. **tokenize_words(text)**
+
+```
+def tokenize_words(text):
+    single_words = text.split()
+    to_be_removed = ['istituto', 'tecnico', 'mario', 'delpozzo', 'degli', ...]
+    filtered_words = [word for word in single_words if word not in to_be_removed and len(word) > 4 and word.isalpha()]
+    return filtered_words
+```
+
+### 3. **find_common_words(data)**
+
+```
+def find_common_words(data):
+    word_count = Counter(data)
+    return word_count.most_common(50)
+```
+
+### 4. **label_doc(list_of_words)**
+
+```
+def label_doc(list_of_words):
+    words_to_be_found = [(word, label), ...]
+    label = [label for word, label in words_to_be_found if word in list_of_words]
+    return label[0] if label else 'altro'
+```
+
+### 5. **Main Execution Block**
+
+```
+if __name__ == '__main__':
+    if not os.path.exists('uploads'):
+        os.makedirs('uploads/')
+    app.run()
+```
+
 [https://www.docsumo.com/blogs/ocr/document-classification#:~:text=Document%20classification%20assigns%20a%20document,information%20helps%20us%20find%20information.]
 
 1. Documenti (circolari ad esempio)
