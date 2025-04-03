@@ -24,7 +24,7 @@ def upload():
             text = read_pdf(file_path)
             tokenized = tokenize_words(text)
             most_common = find_common_words(tokenized)
-            label = label_doc(tokenized)[0]
+            label = label_doc(tokenized)
 
             labeled_file = {
                 "filename": file.filename,
@@ -87,49 +87,9 @@ def label_doc(list_of_words):
     label = [label for word, label in words_to_be_found if word in list_of_words]
 
     if label:
-        return label
+        return label[0]
     else:
         return 'altro'
-
-'''
-def label_docs(docs):
-    words_to_be_found = [
-        ('assemblea', 'assemblee'), ('assemblee', 'assemblee'), ('orario', 'orari'), ('orari', 'orari'),
-        ('consiglio', 'consigli'), ('consigli', 'consigli'), ('intervallo', 'intervalli'), ('PCTO', 'PCTO'), ('pcto', 'PCTO'),
-        ('intervalli', 'intervalli'), ('attività', 'attività'), ('vacanza', 'vacanze'),  ('vacanze', 'vacanze'),
-        ('esame', 'esami'), ('esami', 'esami'), ('prime', 'prime'), ('prima', 'prime'), ('seconde', 'seconde'), ('seconda', 'seconde'),
-        ('terze', 'terze'), ('terza', 'terze'), ('quarte', 'quarte'), ('quarta', 'quarte'),
-        ('quinte', 'quinte'), ('quinta', 'quinte'), ('sciopero', 'scioperi'), ('scioperi', 'scioperi')
-    ]
-
-    docs['label'] = next(
-        (label for word, label in words_to_be_found if any(word == w for w, _ in docs['most_common_words'])),
-        'altro')
-'''
-
-
-'''
-def read_all(folder_path):
-    result = {}
-
-    for filename in os.listdir(folder_path):
-        if filename.endswith('.pdf'):
-            file_path = os.path.join(folder_path, filename)
-            text = read_pdf(file_path)
-            tokenized = tokenize_words(text)
-            most_common = find_common_words(tokenized)
-
-            result[filename] = {
-                "most_common_words": most_common
-            }
-
-            label_docs(result[filename])
-
-            if 'PCTO' in filename:
-                result[filename]['label'] = 'PCTO'
-
-    return result
-'''
 
 
 if __name__ == '__main__':
